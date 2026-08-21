@@ -12,6 +12,7 @@
 .brand{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 24px;text-align:center}
 .brand img{width:min(330px,90%);height:auto}
 .tag{font-size:14px;line-height:1.65;margin-top:14px;color:#0b376d;font-weight:600}
+.tag-divider{width:78%;border:0;border-top:1px solid #9fb8d4;margin:10px auto 8px}
 .hero-photo{width:100%;height:360px;object-fit:cover;display:block}
 section{padding:34px 48px}.title{text-align:center;font-size:24px;margin:0 0 28px}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;text-align:center}
@@ -23,7 +24,7 @@ section{padding:34px 48px}.title{text-align:center;font-size:24px;margin:0 0 28p
 .btn{display:inline-block;margin-top:12px;padding:15px 22px;background:var(--bright);color:white;text-decoration:none;font-weight:700;border-radius:6px;font-size:13px}
 .card{margin:16px 48px;padding:20px 28px;border:1px solid var(--line);border-radius:13px;display:flex;align-items:center;gap:18px}
 .card .circle{width:54px;height:54px;flex:none;border-radius:50%;background:#eaf3fd;display:grid;place-items:center;font-size:25px}
-.card small{display:block}.card strong{font-size:18px}.doctor{color:#0063d8;font-weight:700;font-size:13px}
+.card small{display:block}.card strong{font-size:18px}.doctor{display:block;margin-top:4px;color:#0063d8;font-weight:700;font-size:13px}
 .notice{margin:16px 48px;padding:20px 28px;border:1px solid #f4b35e;border-radius:13px;background:#fffaf3;display:flex;gap:20px;align-items:center;color:#111;font-size:14px;line-height:1.55}
 .warn{font-size:34px;color:var(--orange)}
 .contact{margin:16px 48px;padding:20px 28px;border-radius:13px;background:var(--pale);display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:20px}
@@ -38,7 +39,7 @@ footer{text-align:center;padding:10px 20px 24px;font-size:12px;color:#47627e}
   <div class="hero">
     <div class="brand">
       <img src="logo-refraccion-medica.jpg" alt="Refracción Médica">
-      <div class="tag">TELEMEDICINA PARA EVALUACIÓN VISUAL<br>Y REFRACCIÓN REMOTA<br>DIRIGIDO A PROFESIONALES DE OFTALMOLOGÍA</div>
+      <div class="tag">TELEMEDICINA PARA EVALUACIÓN VISUAL<br>Y REFRACCIÓN REMOTA<hr class="tag-divider">DIRIGIDO A PROFESIONALES DE OFTALMOLOGÍA</div>
     </div>
     <img class="hero-photo" src="evaluacion-visual.jpg" alt="Equipo de evaluación visual">
   </div>
