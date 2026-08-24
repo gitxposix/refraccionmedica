@@ -5,35 +5,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Refracción Médica</title>
 <style>
-:root{--blue:#073b7a;--bright:#0667d8;--pale:#f2f7fd;--line:#d4e4f7;--orange:#f28a00}
-*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#082f64;background:#fff}
-.wrap{max-width:1120px;margin:auto}
-.hero{display:grid;grid-template-columns:44% 56%;background:#f7fbff}
-.brand{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 24px;text-align:center}
-.brand img{width:min(330px,90%);height:auto}
-.tag{font-size:14px;line-height:1.65;margin-top:14px;color:#0b376d;font-weight:600}
-.tag-divider{width:78%;border:0;border-top:1px solid #9fb8d4;margin:10px auto 8px}
-.hero-photo{width:100%;height:360px;object-fit:cover;display:block}
-section{padding:34px 48px}.title{text-align:center;font-size:24px;margin:0 0 28px}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;text-align:center}
-.ico{width:54px;height:54px;margin:auto auto 13px;border-radius:50%;background:#eaf3fd;display:grid;place-items:center;font-size:27px}
-.steps b{font-size:13px}.steps p{font-size:12px;line-height:1.45;color:#294d78}
-.info-panel{margin:0 48px 26px;padding:28px 32px;background:#f7fbff;border:1px solid var(--line);border-radius:14px;box-shadow:0 4px 14px rgba(7,59,122,.06)}
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px 34px}.info-block h3{margin:0 0 9px;font-size:18px;color:var(--blue)}.info-block p{margin:0;font-size:14px;line-height:1.65;color:#294d78}.benefits{grid-column:1/-1;border-top:1px solid #c9dbef;padding-top:22px}.benefits h3{margin:0 0 12px;font-size:19px;color:var(--blue)}.benefits p{margin:7px 0;font-size:14px;line-height:1.65;color:#294d78}.benefits strong{color:#082f64}
-.formbox{margin:8px 48px 18px;padding:28px;background:var(--pale);border-radius:16px;display:grid;grid-template-columns:45% 55%;gap:36px;align-items:center}
-.formbox img{width:100%;max-height:300px;object-fit:contain;background:white;border:1px solid var(--line);border-radius:8px}
-.formbox h2{font-size:27px;margin:0 0 12px}.formbox p{font-size:14px}
-.btn{display:inline-block;margin-top:12px;padding:15px 22px;background:var(--bright);color:white;text-decoration:none;font-weight:700;border-radius:6px;font-size:13px}
-.card{margin:16px 48px;padding:20px 28px;border:1px solid var(--line);border-radius:13px;display:flex;align-items:center;gap:18px}
-.card .circle{width:54px;height:54px;flex:none;border-radius:50%;background:#eaf3fd;display:grid;place-items:center;font-size:25px}
-.card small{display:block}.card strong{font-size:18px}.doctor{display:block;margin-top:4px;color:#0063d8;font-weight:700;font-size:13px}
-.notice{margin:16px 48px;padding:20px 28px;border:1px solid #f4b35e;border-radius:13px;background:#fffaf3;display:flex;gap:20px;align-items:center;color:#111;font-size:14px;line-height:1.55}
-.warn{font-size:34px;color:var(--orange)}
-.contact{margin:16px 48px;padding:20px 28px;border-radius:13px;background:var(--pale);display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:20px}
-.contact h3{margin:0 0 6px;font-size:21px}.contact p{margin:0}
-.contact-right{text-align:center;border-left:1px solid #bfd4ed}.contact-right a.email{display:block;margin-top:8px;color:#0063d8;font-weight:700;text-decoration:none}
-footer{text-align:center;padding:10px 20px 24px;font-size:12px;color:#47627e}
-@media(max-width:760px){.hero{grid-template-columns:1fr}.hero-photo{height:240px}.steps{grid-template-columns:1fr 1fr}.formbox{grid-template-columns:1fr;margin:8px 18px}.card,.notice,.contact,.info-panel{margin:14px 18px}section{padding:28px 18px}.info-grid{grid-template-columns:1fr}.benefits{grid-column:auto}.contact{grid-template-columns:1fr}.contact-right{border-left:0;border-top:1px solid #bfd4ed;padding-top:16px}}
+:root{--blue:#073b7a;--bright:#0667d8;--pale:#f2f7fd;--line:#d4e4f7;--green:#2f7d32;--greenpale:#f3faf2;--orange:#f28a00}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#082f64;background:#fff}.wrap{max-width:1120px;margin:auto}
+.hero{display:grid;grid-template-columns:44% 56%;background:#f7fbff}.brand{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 24px;text-align:center}.brand img{width:min(330px,90%);height:auto}.tag{font-size:14px;line-height:1.65;margin-top:14px;color:#0b376d;font-weight:600}.tag-divider{width:78%;border:0;border-top:1px solid #9fb8d4;margin:10px auto 8px}.hero-photo{width:100%;height:360px;object-fit:cover;display:block}
+.info-area{padding:42px 48px 18px}.mission-vision{display:grid;grid-template-columns:1fr 1fr;gap:20px}.mv-card{border:1px solid var(--line);border-radius:15px;padding:28px 30px;min-height:190px;box-shadow:0 4px 14px rgba(7,59,122,.05)}.mission{background:linear-gradient(135deg,#f2f7ff,#fff)}.vision{background:linear-gradient(135deg,var(--greenpale),#fff);border-color:#d5e6d2}.mv-head{display:flex;align-items:center;gap:16px;margin-bottom:16px}.mv-icon{width:62px;height:62px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:31px;color:#fff;background:var(--blue)}.vision .mv-icon{background:var(--green)}.mv-card h3{margin:0;font-size:23px}.vision h3{color:var(--green)}.mv-card p{margin:0;font-size:15px;line-height:1.7;color:#294d78}.mv-tag{border-top:1px solid #cbdcf0;margin-top:20px;padding-top:16px;font-size:14px;font-weight:700;font-style:italic}.vision .mv-tag{border-color:#d5e6d2;color:var(--green)}
+.benefits{margin-top:22px;padding:30px 32px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(135deg,#f4f8fd,#fff);box-shadow:0 4px 14px rgba(7,59,122,.05)}.benefits-title{display:flex;align-items:center;gap:16px;margin-bottom:20px}.benefits-title .mv-icon{width:58px;height:58px;font-size:27px}.benefits h3{margin:0;font-size:22px}.benefit-row{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #dbe7f4;font-size:14px;line-height:1.6;color:#294d78}.benefit-row:last-child{border-bottom:0}.check{width:23px;height:23px;flex:none;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:bold;margin-top:1px}.benefit-row strong{color:#082f64}
+.process{padding:38px 48px 42px}.title{text-align:center;font-size:25px;margin:0 0 30px}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;text-align:center}.ico{width:64px;height:64px;margin:auto auto 14px;border-radius:50%;background:#eaf3fd;display:grid;place-items:center;font-size:30px}.steps b{font-size:13px}.steps p{font-size:12px;line-height:1.5;color:#294d78}
+.resources{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin:0 48px 22px}.formbox,.card{border:1px solid var(--line);border-radius:14px;background:#f8fbff;padding:22px}.formbox{display:grid;grid-template-columns:40% 60%;gap:22px;align-items:center}.formbox img{width:100%;max-height:220px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:8px}.formbox h2{font-size:22px;margin:0 0 8px}.formbox p{font-size:14px}.btn{display:inline-block;margin-top:10px;padding:13px 18px;background:var(--bright);color:#fff;text-decoration:none;font-weight:700;border-radius:6px;font-size:12px}.card{display:flex;align-items:center;gap:18px}.card .circle{width:78px;height:78px;flex:none;border-radius:50%;background:#eaf3fd;display:grid;place-items:center;font-size:39px;color:var(--blue)}.card small{display:block;margin-bottom:5px}.card strong{font-size:18px;display:block}.doctor{display:block;margin-top:5px;color:#0063d8;font-weight:700;font-size:13px}
+.notice{margin:30px 48px 22px;padding:22px 28px;border:1px solid #f4b35e;border-radius:13px;background:#fffaf3;display:flex;gap:20px;align-items:center;color:#111;font-size:14px;line-height:1.55}.warn{font-size:36px;color:var(--orange)}.notice b{color:#d87300;font-size:16px}
+.contact{margin:16px 48px;padding:20px 28px;border-radius:13px;background:var(--pale);display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:20px}.contact h3{margin:0 0 6px;font-size:21px}.contact p{margin:0}.contact-right{text-align:center;border-left:1px solid #bfd4ed}.contact-right a.email{display:block;margin-top:8px;color:#0063d8;font-weight:700;text-decoration:none}footer{text-align:center;padding:10px 20px 24px;font-size:12px;color:#47627e}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.hero-photo{height:240px}.info-area,.process{padding:28px 18px}.mission-vision,.resources{grid-template-columns:1fr}.resources{margin:0 18px 20px}.steps{grid-template-columns:1fr 1fr}.formbox{grid-template-columns:1fr}.notice,.contact{margin:18px}.contact{grid-template-columns:1fr}.contact-right{border-left:0;border-top:1px solid #bfd4ed;padding-top:16px}.mv-card,.benefits{padding:22px}}
 </style>
 </head>
 <body>
@@ -46,52 +27,52 @@ footer{text-align:center;padding:10px 20px 24px;font-size:12px;color:#47627e}
     <img class="hero-photo" src="evaluacion-visual.jpg" alt="Equipo de evaluación visual">
   </div>
 
-  <section>
+  <div class="info-area">
+    <div class="mission-vision">
+      <div class="mv-card mission">
+        <div class="mv-head"><div class="mv-icon">◎</div><h3>MISIÓN</h3></div>
+        <p>Brindar servicios de refracción médica mediante telemedicina sincrónica o asincrónica, en coordinación con técnicos de optometría y/o profesionales de la salud.</p>
+        <div class="mv-tag">Su tranquilidad, nuestra responsabilidad.</div>
+      </div>
+      <div class="mv-card vision">
+        <div class="mv-head"><div class="mv-icon">◉</div><h3>VISIÓN</h3></div>
+        <p>Facilitar el acceso de la población a una refracción médica adecuada, contribuyendo al cuidado y mejoramiento de la salud visual.</p>
+        <div class="mv-tag">Más alcance, más oportunidades.</div>
+      </div>
+    </div>
+
+    <div class="benefits">
+      <div class="benefits-title"><div class="mv-icon">▣</div><h3>BENEFICIOS PARA ÓPTICAS Y CENTROS ÓPTICOS</h3></div>
+      <div class="benefit-row"><span class="check">✓</span><div><strong>Amplíe sus servicios y haga crecer su negocio</strong> incorporando nuestro sistema de refracción médica a distancia.</div></div>
+      <div class="benefit-row"><span class="check">✓</span><div><strong>Su tranquilidad, nuestra responsabilidad:</strong> usted nos envía la información y los resultados obtenidos durante la evaluación visual. Un médico oftalmólogo los analiza y, cuando corresponde, emite la receta óptica para lentes.</div></div>
+      <div class="benefit-row"><span class="check">✓</span><div><strong>Más alcance, más oportunidades:</strong> nuestro sistema de telemedicina asincrónica puede utilizarse en múltiples locales, facilitando la atención de más pacientes y apoyando el crecimiento de sus ventas.</div></div>
+      <div class="benefit-row"><span class="check">✓</span><div><strong>El proceso es simple:</strong> complete el formulario PDF y envíelo para su evaluación. También puede tomar una fotografía del formulario y enviárnosla para que la información sea registrada por nosotros.</div></div>
+      <div class="benefit-row"><span class="check">✓</span><div>La evaluación médica y la emisión de la receta se realizan de manera ágil, de acuerdo con la información recibida.</div></div>
+    </div>
+  </div>
+
+  <section class="process">
     <h2 class="title">¿CÓMO FUNCIONA?</h2>
     <div class="steps">
       <div><div class="ico">⊙</div><b>1. EVALUACIÓN VISUAL</b><p>Pruebas y mediciones del paciente.</p></div>
       <div><div class="ico">✓</div><b>2. REGISTRO DE DATOS</b><p>Información registrada en el formulario.</p></div>
-      <div><div class="ico">▣</div><b>3. ANÁLISIS MÉDICO</b><p>Revisión remota por el médico oftalmólogo.</p></div>
+      <div><div class="ico">⚕</div><b>3. ANÁLISIS MÉDICO</b><p>Revisión remota por el médico oftalmólogo.</p></div>
       <div><div class="ico">▤</div><b>4. RESULTADO</b><p>Conclusiones, recomendaciones y prescripción cuando corresponde.</p></div>
     </div>
   </section>
 
-  <div class="info-panel">
-    <div class="info-grid">
-      <div class="info-block">
-        <h3>MISIÓN</h3>
-        <p>Brindar servicios de refracción médica mediante telemedicina sincrónica o asincrónica, en coordinación con técnicos de optometría y/o profesionales de la salud.</p>
-      </div>
-      <div class="info-block">
-        <h3>VISIÓN</h3>
-        <p>Facilitar el acceso de la población a una refracción médica adecuada, contribuyendo al cuidado y mejoramiento de la salud visual.</p>
-      </div>
-      <div class="benefits">
-        <h3>BENEFICIOS PARA ÓPTICAS Y CENTROS ÓPTICOS</h3>
-        <p><strong>Amplíe sus servicios y haga crecer su negocio</strong> incorporando nuestro sistema de refracción médica a distancia.</p>
-        <p>Usted nos envía la información y los resultados obtenidos durante la evaluación visual. Un médico oftalmólogo los analiza y, cuando corresponde, emite la receta óptica para lentes.</p>
-        <p>Nuestro sistema de telemedicina asincrónica puede utilizarse en múltiples locales, facilitando la atención de más pacientes y apoyando el crecimiento de sus ventas.</p>
-        <p><strong>El proceso es simple:</strong> complete el formulario PDF y envíelo para su evaluación. También puede tomar una fotografía del formulario y enviárnosla para que la información sea registrada por nosotros.</p>
-        <p>La evaluación médica y la emisión de la receta se realizan de manera ágil, de acuerdo con la información recibida.</p>
-      </div>
+  <div class="resources">
+    <div class="formbox">
+      <img src="formulario-preview.jpg" alt="Vista previa del formulario">
+      <div><h2>FORMULARIO DE<br>EVALUACIÓN VISUAL</h2><p>PDF rellenable · Uso profesional</p><a class="btn" href="Formulario_Refraccion_Medica.pdf" download>⇩ &nbsp; DESCARGAR FORMULARIO PDF</a></div>
+    </div>
+    <div class="card">
+      <div class="circle">⚕</div>
+      <div><small>Análisis médico especializado</small><strong>Dr. Pablo Campos Retamozo</strong><span class="doctor">MÉDICO OFTALMÓLOGO</span></div>
     </div>
   </div>
 
-  <div class="formbox">
-    <img src="formulario-preview.jpg" alt="Vista previa del formulario">
-    <div>
-      <h2>FORMULARIO DE<br>EVALUACIÓN VISUAL</h2>
-      <p>PDF rellenable · Uso profesional</p>
-      <a class="btn" href="Formulario_Refraccion_Medica.pdf" download>⇩ &nbsp; DESCARGAR FORMULARIO PDF</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="circle">⚕</div>
-    <div><small>Análisis médico especializado</small><strong>Dr. Pablo Campos Retamozo</strong><span class="doctor">MÉDICO OFTALMÓLOGO</span></div>
-  </div>
-
-  <div class="notice"><div class="warn">△</div><div><b>Aviso Importante.</b> Este proceso de telemedicina y refracción remota constituye una herramienta de apoyo para la evaluación visual. No reemplaza un examen oftalmológico presencial completo. Ante síntomas nuevos, persistentes, de alarma o cuando el profesional lo considere necesario, se recomienda una evaluación presencial.</div></div>
+  <div class="notice"><div class="warn">△</div><div><b>AVISO IMPORTANTE</b><br>Este proceso de telemedicina y refracción remota constituye una herramienta de apoyo para la evaluación visual. No reemplaza un examen oftalmológico presencial completo. Ante síntomas nuevos, persistentes, de alarma o cuando el profesional lo considere necesario, se recomienda una evaluación presencial.</div></div>
 
   <div class="contact">
     <div><h3>¿Dudas o consultas?</h3><p>Contáctanos, estamos para ayudarte.</p></div>
