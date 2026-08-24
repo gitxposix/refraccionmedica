@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Receta - Refracción Médica</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#eef3f7;font-family:Arial,Helvetica,sans-serif;color:#123f6b}
+.sheet{width:8.5in;min-height:11in;margin:24px auto;background:#fff;padding:.65in .7in;box-shadow:0 2px 14px #0002}
+.header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #4b9ac6;padding-bottom:14px}
+.brand h1{margin:0;font-size:27px}.brand b{display:block;margin-top:5px}.brand small{display:block;margin-top:4px}
+.rx-title{font-size:18px;font-weight:700;margin-top:7px}
+.row{display:grid;grid-template-columns:1fr 180px;gap:22px;margin-top:28px}
+.label{font-weight:700;font-size:13px;margin-bottom:6px}.value{min-height:32px;border-bottom:1px solid #9eb8c9;padding:7px 5px;color:#111}
+table{width:100%;border-collapse:collapse;margin-top:30px;color:#111}
+th{background:#eaf3f8;color:#123f6b}th,td{border:1px solid #9eb8c9;padding:10px;text-align:center;height:40px}
+.left{text-align:left;font-weight:700;color:#123f6b}
+.block{margin-top:25px}.box{border:1px solid #9eb8c9;min-height:88px;padding:10px;color:#111;white-space:pre-wrap}
+.signature{margin-top:50px;width:320px;border-top:1px solid #9eb8c9;padding-top:7px;font-weight:700}
+.actions{text-align:center;margin:18px auto}.actions button{padding:12px 22px;border:0;border-radius:6px;background:#0667d8;color:white;font-weight:700;cursor:pointer}
+.note{text-align:center;font-size:12px;color:#64788a;margin-top:18px}
+@media print{body{background:#fff}.sheet{margin:0;box-shadow:none;width:auto;min-height:auto}.actions,.note{display:none}}
+@media(max-width:850px){.sheet{width:100%;margin:0;padding:28px 22px;min-height:100vh}.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="actions"><button onclick="window.print()">IMPRIMIR / GUARDAR RECETA EN PDF</button></div>
+<main class="sheet">
+  <div class="header">
+    <div class="brand">
+      <h1>REFRACCION MEDICA</h1>
+      <b>Dr. Pablo Campos Retamozo</b>
+      <small>MEDICO OFTALMOLOGO</small>
+      <small>info@refraccionmedica.com</small>
+    </div>
+    <div class="rx-title">RECETA</div>
+  </div>
+  <div class="row">
+    <div><div class="label">Paciente</div><div class="value" id="paciente"></div></div>
+    <div><div class="label">Fecha</div><div class="value" id="fecha"></div></div>
+  </div>
+  <table>
+    <tr><th>Prescripción</th><th>ESF</th><th>CIL</th><th>EJE</th><th>AV</th><th>ADD</th></tr>
+    <tr><td class="left">RX Final OD</td><td id="odesf"></td><td id="odcil"></td><td id="odeje"></td><td id="odav"></td><td id="odadd"></td></tr>
+    <tr><td class="left">RX Final OS</td><td id="osesf"></td><td id="oscil"></td><td id="oseje"></td><td id="osav"></td><td id="osadd"></td></tr>
+  </table>
+  <div class="block"><div class="label">DNP Lejos / DNP Cerca</div><div class="value" id="dnp"></div></div>
+  <div class="block"><div class="label">Indicaciones</div><div class="box" id="indicaciones"></div></div>
+  <div class="row">
+    <div><div class="label">Médico</div><div class="value" id="medico"></div></div>
+    <div><div class="label">CMP / Registro</div><div class="value" id="registro"></div></div>
+  </div>
+  <div class="signature">Firma del médico</div>
+</main>
+<div class="note">Los datos se reciben desde el formulario y se muestran únicamente en esta página para generar la receta.</div>
+<script>
+const p=new URLSearchParams(location.search);
+["paciente","fecha","odesf","odcil","odeje","odav","odadd","osesf","oscil","oseje","osav","osadd","dnp","indicaciones","medico","registro"].forEach(id=>{
+ document.getElementById(id).textContent=p.get(id)||"";
+});
+</script>
+</body>
+</html>
