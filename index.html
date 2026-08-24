@@ -18,6 +18,8 @@ section{padding:34px 48px}.title{text-align:center;font-size:24px;margin:0 0 28p
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;text-align:center}
 .ico{width:54px;height:54px;margin:auto auto 13px;border-radius:50%;background:#eaf3fd;display:grid;place-items:center;font-size:27px}
 .steps b{font-size:13px}.steps p{font-size:12px;line-height:1.45;color:#294d78}
+.info-panel{margin:0 48px 26px;padding:28px 32px;background:#f7fbff;border:1px solid var(--line);border-radius:14px;box-shadow:0 4px 14px rgba(7,59,122,.06)}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px 34px}.info-block h3{margin:0 0 9px;font-size:18px;color:var(--blue)}.info-block p{margin:0;font-size:14px;line-height:1.65;color:#294d78}.benefits{grid-column:1/-1;border-top:1px solid #c9dbef;padding-top:22px}.benefits h3{margin:0 0 12px;font-size:19px;color:var(--blue)}.benefits p{margin:7px 0;font-size:14px;line-height:1.65;color:#294d78}.benefits strong{color:#082f64}
 .formbox{margin:8px 48px 18px;padding:28px;background:var(--pale);border-radius:16px;display:grid;grid-template-columns:45% 55%;gap:36px;align-items:center}
 .formbox img{width:100%;max-height:300px;object-fit:contain;background:white;border:1px solid var(--line);border-radius:8px}
 .formbox h2{font-size:27px;margin:0 0 12px}.formbox p{font-size:14px}
@@ -31,7 +33,7 @@ section{padding:34px 48px}.title{text-align:center;font-size:24px;margin:0 0 28p
 .contact h3{margin:0 0 6px;font-size:21px}.contact p{margin:0}
 .contact-right{text-align:center;border-left:1px solid #bfd4ed}.contact-right a.email{display:block;margin-top:8px;color:#0063d8;font-weight:700;text-decoration:none}
 footer{text-align:center;padding:10px 20px 24px;font-size:12px;color:#47627e}
-@media(max-width:760px){.hero{grid-template-columns:1fr}.hero-photo{height:240px}.steps{grid-template-columns:1fr 1fr}.formbox{grid-template-columns:1fr;margin:8px 18px}.card,.notice,.contact{margin:14px 18px}section{padding:28px 18px}.contact{grid-template-columns:1fr}.contact-right{border-left:0;border-top:1px solid #bfd4ed;padding-top:16px}}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.hero-photo{height:240px}.steps{grid-template-columns:1fr 1fr}.formbox{grid-template-columns:1fr;margin:8px 18px}.card,.notice,.contact,.info-panel{margin:14px 18px}section{padding:28px 18px}.info-grid{grid-template-columns:1fr}.benefits{grid-column:auto}.contact{grid-template-columns:1fr}.contact-right{border-left:0;border-top:1px solid #bfd4ed;padding-top:16px}}
 </style>
 </head>
 <body>
@@ -53,6 +55,27 @@ footer{text-align:center;padding:10px 20px 24px;font-size:12px;color:#47627e}
       <div><div class="ico">▤</div><b>4. RESULTADO</b><p>Conclusiones, recomendaciones y prescripción cuando corresponde.</p></div>
     </div>
   </section>
+
+  <div class="info-panel">
+    <div class="info-grid">
+      <div class="info-block">
+        <h3>MISIÓN</h3>
+        <p>Brindar servicios de refracción médica mediante telemedicina sincrónica o asincrónica, en coordinación con técnicos de optometría y/o profesionales de la salud.</p>
+      </div>
+      <div class="info-block">
+        <h3>VISIÓN</h3>
+        <p>Facilitar el acceso de la población a una refracción médica adecuada, contribuyendo al cuidado y mejoramiento de la salud visual.</p>
+      </div>
+      <div class="benefits">
+        <h3>BENEFICIOS PARA ÓPTICAS Y CENTROS ÓPTICOS</h3>
+        <p><strong>Amplíe sus servicios y haga crecer su negocio</strong> incorporando nuestro sistema de refracción médica a distancia.</p>
+        <p>Usted nos envía la información y los resultados obtenidos durante la evaluación visual. Un médico oftalmólogo los analiza y, cuando corresponde, emite la receta óptica para lentes.</p>
+        <p>Nuestro sistema de telemedicina asincrónica puede utilizarse en múltiples locales, facilitando la atención de más pacientes y apoyando el crecimiento de sus ventas.</p>
+        <p><strong>El proceso es simple:</strong> complete el formulario PDF y envíelo para su evaluación. También puede tomar una fotografía del formulario y enviárnosla para que la información sea registrada por nosotros.</p>
+        <p>La evaluación médica y la emisión de la receta se realizan de manera ágil, de acuerdo con la información recibida.</p>
+      </div>
+    </div>
+  </div>
 
   <div class="formbox">
     <img src="formulario-preview.jpg" alt="Vista previa del formulario">
