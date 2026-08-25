@@ -1,64 +1,77 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Receta - Refracción Médica</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Generar receta - Refraccion Medica</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#eef3f7;font-family:Arial,Helvetica,sans-serif;color:#123f6b}
-.sheet{width:8.5in;min-height:11in;margin:24px auto;background:#fff;padding:.65in .7in;box-shadow:0 2px 14px #0002}
-.header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #4b9ac6;padding-bottom:14px}
-.brand h1{margin:0;font-size:27px}.brand b{display:block;margin-top:5px}.brand small{display:block;margin-top:4px}
-.rx-title{font-size:18px;font-weight:700;margin-top:7px}
-.row{display:grid;grid-template-columns:1fr 180px;gap:22px;margin-top:28px}
-.label{font-weight:700;font-size:13px;margin-bottom:6px}.value{min-height:32px;border-bottom:1px solid #9eb8c9;padding:7px 5px;color:#111}
-table{width:100%;border-collapse:collapse;margin-top:30px;color:#111}
-th{background:#eaf3f8;color:#123f6b}th,td{border:1px solid #9eb8c9;padding:10px;text-align:center;height:40px}
-.left{text-align:left;font-weight:700;color:#123f6b}
-.block{margin-top:25px}.box{border:1px solid #9eb8c9;min-height:88px;padding:10px;color:#111;white-space:pre-wrap}
-.signature{margin-top:50px;width:320px;border-top:1px solid #9eb8c9;padding-top:7px;font-weight:700}
-.actions{text-align:center;margin:18px auto}.actions button{padding:12px 22px;border:0;border-radius:6px;background:#0667d8;color:white;font-weight:700;cursor:pointer}
-.note{text-align:center;font-size:12px;color:#64788a;margin-top:18px}
-@media print{body{background:#fff}.sheet{margin:0;box-shadow:none;width:auto;min-height:auto}.actions,.note{display:none}}
-@media(max-width:850px){.sheet{width:100%;margin:0;padding:28px 22px;min-height:100vh}.row{grid-template-columns:1fr}}
-</style>
-</head>
-<body>
-<div class="actions"><button onclick="window.print()">IMPRIMIR / GUARDAR RECETA EN PDF</button></div>
-<main class="sheet">
-  <div class="header">
-    <div class="brand">
-      <h1>REFRACCION MEDICA</h1>
-      <b>Dr. Pablo Campos Retamozo</b>
-      <small>MEDICO OFTALMOLOGO</small>
-      <small>info@refraccionmedica.com</small>
-    </div>
-    <div class="rx-title">RECETA</div>
-  </div>
-  <div class="row">
-    <div><div class="label">Paciente</div><div class="value" id="paciente"></div></div>
-    <div><div class="label">Fecha</div><div class="value" id="fecha"></div></div>
-  </div>
-  <table>
-    <tr><th>Prescripción</th><th>ESF</th><th>CIL</th><th>EJE</th><th>AV</th><th>ADD</th></tr>
-    <tr><td class="left">RX Final OD</td><td id="odesf"></td><td id="odcil"></td><td id="odeje"></td><td id="odav"></td><td id="odadd"></td></tr>
-    <tr><td class="left">RX Final OS</td><td id="osesf"></td><td id="oscil"></td><td id="oseje"></td><td id="osav"></td><td id="osadd"></td></tr>
-  </table>
-  <div class="block"><div class="label">DNP Lejos / DNP Cerca</div><div class="value" id="dnp"></div></div>
-  <div class="block"><div class="label">Indicaciones</div><div class="box" id="indicaciones"></div></div>
-  <div class="row">
-    <div><div class="label">Médico</div><div class="value" id="medico"></div></div>
-    <div><div class="label">CMP / Registro</div><div class="value" id="registro"></div></div>
-  </div>
-  <div class="signature">Firma del médico</div>
-</main>
-<div class="note">Los datos se reciben desde el formulario y se muestran únicamente en esta página para generar la receta.</div>
+body{font-family:Arial,sans-serif;background:#eef3f7;color:#123f6b;margin:0;padding:30px}
+.card{max-width:720px;margin:auto;background:#fff;padding:30px;border-radius:12px;box-shadow:0 2px 12px #0002}
+h1{margin-top:0}.ok{padding:14px;background:#eaf6ee;border-radius:8px;color:#245c35}
+button{background:#0869c9;color:#fff;border:0;border-radius:7px;padding:12px 18px;font-weight:700;cursor:pointer}
+small{color:#64788a}
+</style></head>
+<body><div class="card">
+<h1>REFRACCION MEDICA</h1>
+<p id="status" class="ok">Preparando la receta optica...</p>
+<p>La receta se genera automaticamente como un archivo PDF independiente. Revise el PDF y luego firmelo electronicamente en Adobe Acrobat.</p>
+<button onclick="generate()">GENERAR PDF NUEVAMENTE</button>
+<p><small>Si el navegador bloquea la descarga automatica, utilice el boton anterior.</small></p>
+</div>
 <script>
 const p=new URLSearchParams(location.search);
-["paciente","fecha","odesf","odcil","odeje","odav","odadd","osesf","oscil","oseje","osav","osadd","dnp","indicaciones","medico","registro"].forEach(id=>{
- document.getElementById(id).textContent=p.get(id)||"";
-});
-</script>
-</body>
-</html>
+const g=k=>p.get(k)||"";
+function latin(s){return unescape(encodeURIComponent(s)).replace(/[^\x00-\xFF]/g,"?")}
+function esc(s){return latin(s).replace(/\\/g,"\\\\").replace(/\(/g,"\\(").replace(/\)/g,"\\)").replace(/\r?\n/g," ")}
+function generate(){
+ const id=g("id")||"SIN-ID", paciente=g("paciente"), fecha=g("fecha");
+ const rows=[
+ ["RX Final OD",g("odesf"),g("odcil"),g("odeje"),g("odav"),g("odadd")],
+ ["RX Final OS",g("osesf"),g("oscil"),g("oseje"),g("osav"),g("osadd")]
+ ];
+ let ops=[];
+ const T=(x,y,size,text,bold=false)=>ops.push(`BT /${bold?"F2":"F1"} ${size} Tf ${x} ${y} Td (${esc(text)}) Tj ET`);
+ const L=(x1,y1,x2,y2)=>ops.push(`${x1} ${y1} m ${x2} ${y2} l S`);
+ T(55,770,20,"REFRACCION MEDICA",true);
+ T(55,748,10,"Dr. Pablo Campos Retamozo",true);
+ T(55,733,9,"MEDICO OFTALMOLOGO",true);
+ T(55,718,8,"info@refraccionmedica.com");
+ T(455,752,14,"RECETA OPTICA",true); L(55,705,540,705);
+ T(55,675,9,"ID del caso:",true); T(120,675,9,id);
+ T(330,675,9,"Fecha:",true); T(370,675,9,fecha);
+ T(55,648,9,"Paciente:",true); T(110,648,9,paciente);
+ let xs=[55,160,230,300,370,440,510], heads=["Prescripcion","ESF","CIL","EJE","AV","ADD"];
+ for(let i=0;i<heads.length;i++)T(xs[i]+3,610,8,heads[i],true);
+ L(55,602,540,602); L(55,632,540,632);
+ for(let i=0;i<xs.length;i++)L(xs[i],540,xs[i],632); L(540,540,540,632);
+ let ys=[580,550];
+ for(let r=0;r<2;r++){for(let i=0;i<6;i++)T(xs[i]+4,ys[r],8,rows[r][i],i==0); L(55,ys[r]-10,540,ys[r]-10);}
+ T(55,505,9,"DNP Lejos / DNP Cerca:",true); T(180,505,9,g("dnp")); L(55,494,540,494);
+ T(55,465,9,"Indicaciones / observaciones:",true);
+ let ind=g("indicaciones"); let words=ind.split(/\s+/), lines=[], cur="";
+ words.forEach(w=>{if((cur+" "+w).length>85){lines.push(cur);cur=w}else cur+=(cur?" ":"")+w}); if(cur)lines.push(cur);
+ lines.slice(0,5).forEach((s,i)=>T(55,445-i*15,9,s));
+ T(55,345,9,"Medico:",true); T(100,345,9,g("medico"));
+ T(330,345,8,"CMP / Registro:",true); T(420,345,8,g("registro"));
+ T(55,285,9,"Firma electronica del medico:",true); L(55,250,315,250);
+ T(55,75,8,"Documento final de receta optica. Revisar antes de firmar electronicamente.");
+ const stream=ops.join("\n");
+ let objs=[];
+ objs[1]="<< /Type /Catalog /Pages 2 0 R >>";
+ objs[2]="<< /Type /Pages /Kids [3 0 R] /Count 1 >>";
+ objs[3]="<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> /Contents 4 0 R >>";
+ objs[4]=`<< /Length ${latin(stream).length} >>\nstream\n${stream}\nendstream`;
+ objs[5]="<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>";
+ objs[6]="<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>";
+ let pdf="%PDF-1.4\n", offs=[0];
+ for(let i=1;i<=6;i++){offs[i]=latin(pdf).length; pdf+=`${i} 0 obj\n${objs[i]}\nendobj\n`;}
+ let xref=latin(pdf).length; pdf+="xref\n0 7\n0000000000 65535 f \n";
+ for(let i=1;i<=6;i++)pdf+=String(offs[i]).padStart(10,"0")+" 00000 n \n";
+ pdf+=`trailer\n<< /Size 7 /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`;
+ let bytes=new Uint8Array(latin(pdf).length); let s=latin(pdf); for(let i=0;i<s.length;i++)bytes[i]=s.charCodeAt(i);
+ let blob=new Blob([bytes],{type:"application/pdf"}), a=document.createElement("a");
+ a.href=URL.createObjectURL(blob); a.download=`RM-${id}_Receta_Optica.pdf`; document.body.appendChild(a); a.click(); a.remove();
+ setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+ document.getElementById("status").textContent="Receta generada. Revise el archivo PDF descargado.";
+}
+window.addEventListener("load",()=>setTimeout(generate,400));
+</script></body></html>
