@@ -25,8 +25,8 @@ function esc(s){return latin(s).replace(/\\/g,"\\\\").replace(/\(/g,"\\(").repla
 function generate(){
  const id=g("id")||"SIN-ID", paciente=g("paciente"), fecha=g("fecha");
  const rows=[
- ["OD",g("odesf"),g("odcil"),g("odeje"),g("odav"),g("odadd")],
- ["OS",g("osesf"),g("oscil"),g("oseje"),g("osav"),g("osadd")]
+ ["OD",g("odesf"),g("odcil"),g("odeje")],
+ ["OS",g("osesf"),g("oscil"),g("oseje")]
  ];
  let ops=[];
  const T=(x,y,size,text,bold=false)=>ops.push(`BT /${bold?"F2":"F1"} ${size} Tf ${x} ${y} Td (${esc(text)}) Tj ET`);
@@ -39,12 +39,18 @@ function generate(){
  T(55,675,9,"ID del caso:",true); T(120,675,9,id);
  T(330,675,9,"Fecha:",true); T(370,675,9,fecha);
  T(55,648,9,"Paciente:",true); T(110,648,9,paciente);
- let xs=[55,160,230,300,370,440,510], heads=["Prescripcion","ESF","CIL","EJE","AV","ADD"];
- for(let i=0;i<heads.length;i++)T(xs[i]+3,610,8,heads[i],true);
+
+ // Tabla de prescripcion: solo ESF, CIL y EJE.
+ let xs=[55,190,307,424,540], heads=["Prescripcion","ESF","CIL","EJE"];
+ for(let i=0;i<heads.length;i++)T(xs[i]+4,610,8,heads[i],true);
  L(55,602,540,602); L(55,632,540,632);
- for(let i=0;i<xs.length;i++)L(xs[i],540,xs[i],632); L(540,540,540,632);
+ for(let i=0;i<xs.length;i++)L(xs[i],540,xs[i],632);
  let ys=[580,550];
- for(let r=0;r<2;r++){for(let i=0;i<6;i++)T(xs[i]+4,ys[r],8,rows[r][i],i==0); L(55,ys[r]-10,540,ys[r]-10);}
+ for(let r=0;r<2;r++){
+   for(let i=0;i<4;i++)T(xs[i]+4,ys[r],8,rows[r][i],i==0);
+   L(55,ys[r]-10,540,ys[r]-10);
+ }
+
  T(55,505,9,"DNP Lejos / DNP Cerca:",true); T(180,505,9,g("dnp")); L(55,494,540,494);
  T(55,465,9,"Indicaciones / observaciones:",true);
  let ind=g("indicaciones"); let words=ind.split(/\s+/), lines=[], cur="";
