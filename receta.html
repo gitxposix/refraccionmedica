@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Generar receta - Refraccion Medica</title>
+<title>Generar receta - Refracción Médica</title>
 <style>
 body{font-family:Arial,sans-serif;background:#eef3f7;color:#123f6b;margin:0;padding:30px}
 .card{max-width:720px;margin:auto;background:#fff;padding:30px;border-radius:12px;box-shadow:0 2px 12px #0002}
@@ -11,73 +11,70 @@ button{background:#0869c9;color:#fff;border:0;border-radius:7px;padding:12px 18p
 small{color:#64788a}
 </style></head>
 <body><div class="card">
-<h1>REFRACCION MEDICA</h1>
-<p id="status" class="ok">Preparando la receta optica...</p>
-<p>La receta se genera automaticamente como un archivo PDF independiente. Revise el PDF y luego firmelo electronicamente en Adobe Acrobat.</p>
-<button onclick="generate()">GENERAR PDF NUEVAMENTE</button>
-<p><small>Si el navegador bloquea la descarga automatica, utilice el boton anterior.</small></p>
+<h1>REFRACCIÓN MÉDICA</h1>
+<p id="status" class="ok">Preparando la receta óptica rellenable...</p>
+<p>Se transferirán automáticamente el ID del caso, fecha, paciente, médico y la prescripción OD/OS. La receta conservará campos rellenables para DNP lejos, DNP cerca, indicaciones, observaciones y CMP / Registro.</p>
+<button onclick="generate()">GENERAR RECETA NUEVAMENTE</button>
+<p><small>Abra el PDF generado preferentemente con Adobe Acrobat Reader para completar los campos y firmarlo electrónicamente.</small></p>
 </div>
 <script>
 const p=new URLSearchParams(location.search);
 const g=k=>p.get(k)||"";
 function latin(s){return unescape(encodeURIComponent(s)).replace(/[^\x00-\xFF]/g,"?")}
-function esc(s){return latin(s).replace(/\\/g,"\\\\").replace(/\(/g,"\\(").replace(/\)/g,"\\)").replace(/\r?\n/g," ")}
+function esc(s){return latin(String(s||"")).replace(/\\/g,"\\\\").replace(/\(/g,"\\(").replace(/\)/g,"\\)").replace(/\r?\n/g," ")}
 function generate(){
- const id=g("id")||"SIN-ID", paciente=g("paciente"), fecha=g("fecha");
- const rows=[
- ["OD",g("odesf"),g("odcil"),g("odeje")],
- ["OS",g("osesf"),g("oscil"),g("oseje")]
- ];
+ const id=g("id")||"SIN-ID", fecha=g("fecha"), paciente=g("paciente"), medico=g("medico");
+ const vals={case_id:id,fecha,paciente,od_1:g("odesf"),od_2:g("odcil"),od_3:g("odeje"),os_1:g("osesf"),os_2:g("oscil"),os_3:g("oseje"),medico};
  let ops=[];
  const T=(x,y,size,text,bold=false)=>ops.push(`BT /${bold?"F2":"F1"} ${size} Tf ${x} ${y} Td (${esc(text)}) Tj ET`);
  const L=(x1,y1,x2,y2)=>ops.push(`${x1} ${y1} m ${x2} ${y2} l S`);
- T(55,770,20,"REFRACCION MEDICA",true);
- T(55,748,10,"Dr. Pablo Campos Retamozo",true);
- T(55,733,9,"MEDICO OFTALMOLOGO",true);
- T(55,718,8,"info@refraccionmedica.com");
- T(455,752,14,"RECETA OPTICA",true); L(55,705,540,705);
- T(55,675,9,"ID del caso:",true); T(120,675,9,id);
- T(330,675,9,"Fecha:",true); T(370,675,9,fecha);
- T(55,648,9,"Paciente:",true); T(110,648,9,paciente);
-
- // Tabla de prescripcion: solo ESF, CIL y EJE.
- let xs=[55,190,307,424,540], heads=["Prescripcion","ESF","CIL","EJE"];
- for(let i=0;i<heads.length;i++)T(xs[i]+4,610,8,heads[i],true);
- L(55,602,540,602); L(55,632,540,632);
- for(let i=0;i<xs.length;i++)L(xs[i],540,xs[i],632);
- let ys=[580,550];
- for(let r=0;r<2;r++){
-   for(let i=0;i<4;i++)T(xs[i]+4,ys[r],8,rows[r][i],i==0);
-   L(55,ys[r]-10,540,ys[r]-10);
- }
-
- T(55,505,9,"DNP Lejos / DNP Cerca:",true); T(180,505,9,g("dnp")); L(55,494,540,494);
- T(55,465,9,"Indicaciones / observaciones:",true);
- let ind=g("indicaciones"); let words=ind.split(/\s+/), lines=[], cur="";
- words.forEach(w=>{if((cur+" "+w).length>85){lines.push(cur);cur=w}else cur+=(cur?" ":"")+w}); if(cur)lines.push(cur);
- lines.slice(0,5).forEach((s,i)=>T(55,445-i*15,9,s));
- T(55,345,9,"Medico:",true); T(100,345,9,g("medico"));
- T(330,345,8,"CMP / Registro:",true); T(420,345,8,g("registro"));
- T(55,285,9,"Firma electronica del medico:",true); L(55,250,315,250);
+ T(55,770,20,"REFRACCION MEDICA",true); T(55,748,10,"Dr. Pablo Campos Retamozo",true);
+ T(55,733,9,"MEDICO OFTALMOLOGO",true); T(55,718,8,"info@refraccionmedica.com");
+ T(445,752,14,"RECETA OPTICA",true); L(55,705,540,705);
+ T(55,675,9,"ID del caso:",true); T(330,675,9,"Fecha:",true); T(55,648,9,"Paciente:",true);
+ let xs=[55,165,280,395,510]; ["Prescripcion","ESF","CIL","EJE"].forEach((h,i)=>T(xs[i]+3,610,8,h,true));
+ L(55,602,510,602); L(55,632,510,632); [55,165,280,395,510].forEach(x=>L(x,540,x,632));
+ T(60,580,8,"RX Final OD",true); T(60,550,8,"RX Final OS",true); L(55,570,510,570); L(55,540,510,540);
+ T(55,505,9,"DNP Lejos:",true); T(300,505,9,"DNP Cerca:",true);
+ T(55,465,9,"Indicaciones:",true); T(55,365,9,"Observaciones:",true);
+ T(55,265,9,"Medico:",true); T(330,265,8,"CMP / Registro:",true);
+ T(55,205,9,"Firma electronica del medico:",true); L(55,170,315,170);
  T(55,75,8,"Documento final de receta optica. Revisar antes de firmar electronicamente.");
  const stream=ops.join("\n");
  let objs=[];
- objs[1]="<< /Type /Catalog /Pages 2 0 R >>";
+ const ann=[]; let next=7;
+ function field(name,x,y,w,h,value="",readonly=false,multiline=false){
+   const n=next++; ann.push(n);
+   const flags=(readonly?1:0)|(multiline?4096:0);
+   objs[n]=`<< /Type /Annot /Subtype /Widget /FT /Tx /T (${esc(name)}) /V (${esc(value)}) /DV (${esc(value)}) /Rect [${x} ${y} ${x+w} ${y+h}] /F 4 /Ff ${flags} /DA (/F1 9 Tf 0.07 0.24 0.41 rg) /MK << /BC [0.51 0.71 0.85] /BG [1 1 1] >> /BS << /W 0.8 /S /S >> >>`;
+ }
+ field("case_id",120,664,145,20,vals.case_id,true); field("fecha",370,664,170,20,vals.fecha,true);
+ field("paciente",110,637,430,20,vals.paciente,true);
+ field("od_1",165,574,105,22,vals.od_1,true); field("od_2",280,574,105,22,vals.od_2,true); field("od_3",395,574,105,22,vals.od_3,true);
+ field("os_1",165,544,105,22,vals.os_1,true); field("os_2",280,544,105,22,vals.os_2,true); field("os_3",395,544,105,22,vals.os_3,true);
+ field("dnp_lejos",120,494,135,22,"",false); field("dnp_cerca",370,494,170,22,"",false);
+ field("indicaciones",55,385,485,68,"",false,true); field("observaciones",55,285,485,68,"",false,true);
+ field("medico",100,254,215,22,vals.medico,true); field("registro",420,254,120,22,"",false);
+ objs[1]="<< /Type /Catalog /Pages 2 0 R /AcroForm 6 0 R >>";
  objs[2]="<< /Type /Pages /Kids [3 0 R] /Count 1 >>";
- objs[3]="<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> /Contents 4 0 R >>";
- objs[4]=`<< /Length ${latin(stream).length} >>\nstream\n${stream}\nendstream`;
+ objs[3]=`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 5 0 R /F2 4 0 R >> >> /Contents 0 0 R /Annots [${ann.map(n=>n+' 0 R').join(' ')}] >>`;
+ // Content object assigned after fields so object numbering stays simple.
+ const contentObj=next++;
+ objs[3]=objs[3].replace('/Contents 0 0 R',`/Contents ${contentObj} 0 R`);
+ objs[4]="<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>";
  objs[5]="<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>";
- objs[6]="<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>";
- let pdf="%PDF-1.4\n", offs=[0];
- for(let i=1;i<=6;i++){offs[i]=latin(pdf).length; pdf+=`${i} 0 obj\n${objs[i]}\nendobj\n`;}
- let xref=latin(pdf).length; pdf+="xref\n0 7\n0000000000 65535 f \n";
- for(let i=1;i<=6;i++)pdf+=String(offs[i]).padStart(10,"0")+" 00000 n \n";
- pdf+=`trailer\n<< /Size 7 /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`;
- let bytes=new Uint8Array(latin(pdf).length); let s=latin(pdf); for(let i=0;i<s.length;i++)bytes[i]=s.charCodeAt(i);
- let blob=new Blob([bytes],{type:"application/pdf"}), a=document.createElement("a");
- a.href=URL.createObjectURL(blob); a.download=`RM-${id}_Receta_Optica.pdf`; document.body.appendChild(a); a.click(); a.remove();
+ objs[6]=`<< /Fields [${ann.map(n=>n+' 0 R').join(' ')}] /NeedAppearances true /DA (/F1 9 Tf 0 g) /DR << /Font << /F1 5 0 R /F2 4 0 R >> >> >>`;
+ objs[contentObj]=`<< /Length ${latin(stream).length} >>\nstream\n${stream}\nendstream`;
+ const max=contentObj; let pdf="%PDF-1.4\n", offs=[0];
+ for(let i=1;i<=max;i++){offs[i]=latin(pdf).length; pdf+=`${i} 0 obj\n${objs[i]}\nendobj\n`;}
+ const xref=latin(pdf).length; pdf+=`xref\n0 ${max+1}\n0000000000 65535 f \n`;
+ for(let i=1;i<=max;i++)pdf+=String(offs[i]).padStart(10,"0")+" 00000 n \n";
+ pdf+=`trailer\n<< /Size ${max+1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`;
+ const s=latin(pdf), bytes=new Uint8Array(s.length); for(let i=0;i<s.length;i++)bytes[i]=s.charCodeAt(i);
+ const blob=new Blob([bytes],{type:"application/pdf"}), a=document.createElement("a");
+ a.href=URL.createObjectURL(blob); a.download=`RM-${id}_Receta_Optica_Rellenable.pdf`; document.body.appendChild(a); a.click(); a.remove();
  setTimeout(()=>URL.revokeObjectURL(a.href),2000);
- document.getElementById("status").textContent="Receta generada. Revise el archivo PDF descargado.";
+ document.getElementById("status").textContent="Receta rellenable generada. Complete DNP, indicaciones, observaciones y registro; luego revise y firme el PDF.";
 }
 window.addEventListener("load",()=>setTimeout(generate,400));
 </script></body></html>
